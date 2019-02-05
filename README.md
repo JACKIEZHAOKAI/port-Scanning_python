@@ -2,20 +2,17 @@
 
 I implemented a port scanning function that will use nmap to automatically scanned all the ports based on the given IP, and then filtered all open ports, queryed related info such as the infursctrures managers in mySQL, produced a report about the related info, and then notified infursctrures managers via eamil.
 
-项目步骤
-1    输入list of IP       公网上1000台左右的设备（wifi router switcher）
-     通过nmap 扫描所有IP的所有端口
-    
-2    过滤掉down的端口    只留下up端口
-    输入导入到org 格式的文件    [[ip][port1 port2 ….]]
-    org 格式支持正则表达式
+Steps:
+1    read a list of IP address from files, including 1000+ network infrustructures from public net.
 
-3    和MySQL中的数据作比对
-        输入IP    查询管理员等相关信息
+2    applied Nmap to scan all ports of the above IP address
 
-4    查询信息     导入到excel         import     xlrd    xlmt
-            
-5    通过SMTP 邮件协议， 邮件自动发送到管理员
-        通知管理员异常端口    
-       
-（正常情况下公网端口应该是不对外提供服务 如果开放的话不正常）
+3    filtered out all the ports that are turned down. Left the ports in UP status
+     and output the result in the format of  [[ip][port1 port2 ….]]
+     
+4    compared with network infrustructures database (MYSQL)
+     Given an IP address, query the info of network administrator
+     output info into excel   
+
+5    applied SMTP email protocol to send files to network administrator
+     to detect network anomaly. (Reguraly, public network ports should NOT provide service)
